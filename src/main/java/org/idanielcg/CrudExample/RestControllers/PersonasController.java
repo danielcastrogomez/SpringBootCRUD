@@ -1,8 +1,10 @@
 package org.idanielcg.CrudExample.RestControllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.idanielcg.CrudExample.Model.Persona;
+import org.idanielcg.CrudExample.Services.PersonasService;
 import org.idanielcg.CrudExample.Services.ServicioPersonas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,15 +19,22 @@ public class PersonasController {
 
 	@Autowired
 	ServicioPersonas servicioPersonas;
+	
+	@Autowired
+	PersonasService personasService;
+	
+	
 
 	@GetMapping("/personas")
-	public List<Persona> getPersonas() {
-		return servicioPersonas.getPersonas();
+	public List<org.idanielcg.CrudExample.Entities.Persona> getPersonas() {
+		//return servicioPersonas.getPersonas();
+		return personasService.findAll();
 	}
 
 	@GetMapping("/personas/{id}")
-	public Persona getPersona(@PathVariable("id") Long id) {
-		return servicioPersonas.getPersonaById(id);
+	public Optional<org.idanielcg.CrudExample.Entities.Persona> getPersona(@PathVariable("id") Long id) {
+		//return servicioPersonas.getPersonaById(id);
+		return personasService.findById(id);
 	}
 
 	
